@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "276908502521",
+    "firebase_url": "https://testingkotlin-dfbfe-default-rtdb.firebaseio.com",
+    "project_id": "testingkotlin-dfbfe",
+    "storage_bucket": "testingkotlin-dfbfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276908502521:android:fc0c4256f0d87cf1c06128",
+        "android_client_info": {
+          "package_name": "com.personal.firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYANtptrjkkGFmHMxhyiLG7ZdeM20Faog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
