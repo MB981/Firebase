@@ -2,13 +2,13 @@ package com.personal.firebase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.personal.firebase.databinding.ActivityMainBinding
+import com.personal.firebase.databinding.ActivityUpdateUserBinding
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var mBinding:ActivityMainBinding
+class UpdateUserActivity : AppCompatActivity() {
+    private lateinit var mBinding: ActivityUpdateUserBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding=ActivityMainBinding.inflate(layoutInflater)
+        mBinding = ActivityUpdateUserBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
     }
 }
