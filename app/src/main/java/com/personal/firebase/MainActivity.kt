@@ -1,5 +1,6 @@
 package com.personal.firebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.personal.firebase.databinding.ActivityMainBinding
@@ -10,5 +11,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        mBinding.floatingActionButton.setOnClickListener {
+            val intent=Intent(this,AddUserActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
