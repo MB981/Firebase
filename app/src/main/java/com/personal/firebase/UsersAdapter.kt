@@ -1,6 +1,7 @@
 package com.personal.firebase
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,19 @@ class UsersAdapter(
         holder.adapterBinding.tvName.text = userList[position].userName
         holder.adapterBinding.tvAge.text = userList[position].userAge.toString()
         holder.adapterBinding.tvEmail.text = userList[position].userEmail
+
+        holder.adapterBinding.linearLayout.setOnClickListener {
+            val intent = Intent(context, UpdateUserActivity::class.java)
+            intent.putExtra("id", userList[position].userID)
+            intent.putExtra("name", userList[position].userName)
+            intent.putExtra("age", userList[position].userAge)
+            intent.putExtra("email", userList[position].userEmail)
+            context.startActivity(intent)
+        }
     }
 
+    fun getUserId(position: Int): String {
+    return userList[position].userID
+    }
 
 }
