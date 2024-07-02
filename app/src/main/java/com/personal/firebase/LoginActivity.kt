@@ -24,6 +24,15 @@ class LoginActivity : AppCompatActivity() {
             val password = mBinding.etPassword.text.toString()
             signinWithFirebase(email, password)
         }
+        mBinding.btnForgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
+        mBinding.btnSignInWithPhoneNumber.setOnClickListener {
+            val intent = Intent(this, SignInWithPhoneNumberActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun signinWithFirebase(userEmail: String, userPassword: String) {
