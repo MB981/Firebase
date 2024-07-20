@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.FacebookSdk
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -92,6 +94,8 @@ class MainActivity : AppCompatActivity() {
             showDialogMessage()
         }else if (item.itemId == R.id.SignOut){
             FirebaseAuth.getInstance().signOut()
+
+            LoginManager.getInstance().logOut();
             googleSignInClient.signOut().addOnCompleteListener(this) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

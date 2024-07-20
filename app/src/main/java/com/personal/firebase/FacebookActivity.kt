@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
@@ -17,18 +14,24 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import java.util.*
 
-class FacebookActivity : LoginActivity() {
+class FacebookActivity : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private var auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_facebook)
-        auth = FirebaseAuth.getInstance()
 
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create()
+
+        // Ensure any previous session is cleared
+        LoginManager.getInstance().logOut()
+
+        // Set up Facebook login permissions
         LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile"))
+
+        // Register callback for Facebook login
         LoginManager.getInstance().registerCallback(
             callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -44,19 +47,15 @@ class FacebookActivity : LoginActivity() {
                 override fun onError(error: FacebookException) {
                     Log.d(TAG, "facebook:onError", error)
                 }
-            },
+            }
         )
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         // Pass the activity result back to the Facebook SDK
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }
-
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         Log.d(TAG, "handleFacebookAccessToken:$token")
@@ -72,11 +71,7 @@ class FacebookActivity : LoginActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(
-                        this,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
@@ -90,7 +85,5 @@ class FacebookActivity : LoginActivity() {
         } else {
             Toast.makeText(this, "User signed out successfully", Toast.LENGTH_SHORT).show()
         }
-
-
     }
 }
