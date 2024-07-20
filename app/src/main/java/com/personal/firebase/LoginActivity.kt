@@ -19,7 +19,7 @@ import com.google.firebase.auth.GoogleAuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import com.personal.firebase.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
+open class LoginActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityLoginBinding
     private var auth = FirebaseAuth.getInstance()
 
@@ -62,6 +62,11 @@ class LoginActivity : AppCompatActivity() {
         mBinding.btnGoogleSignIn.setOnClickListener {
             signInGoogle()
         }
+        mBinding.btnFacebookSignIn.setOnClickListener {
+            val intent = Intent(this, FacebookActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+        }
     }
 
 
@@ -96,7 +101,8 @@ class LoginActivity : AppCompatActivity() {
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.idToken)
             }
         } else {
-            Toast.makeText(this, "handlerResults: "+ task.exception.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "handlerResults: " + task.exception.toString(), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -113,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
         launcher.launch(signInIntent)
     }
 
-    private fun updateUI(account: GoogleSignInAccount) {
+    fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -121,7 +127,8 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this, "updateUI: "+task.exception.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "updateUI: " + task.exception.toString(), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
