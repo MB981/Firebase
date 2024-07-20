@@ -10,6 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.personal.firebase.databinding.ActivityMainBinding
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val myReference: DatabaseReference = database.reference.child("MyUsers")
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     val userList = ArrayList<User>()
     lateinit var usersAdapter: UsersAdapter
@@ -26,7 +30,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
 
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
         mBinding.floatingActionButton.setOnClickListener {
             val intent = Intent(this, AddUserActivity::class.java)
             startActivity(intent)
@@ -83,9 +92,11 @@ class MainActivity : AppCompatActivity() {
             showDialogMessage()
         }else if (item.itemId == R.id.SignOut){
             FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            googleSignInClient.signOut().addOnCompleteListener(this) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -110,4 +121,8 @@ class MainActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
+
+
+
 }

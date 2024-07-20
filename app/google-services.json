@@ -13,7 +13,20 @@
           "package_name": "com.personal.firebase"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "276908502521-q4ihvvf5v21l2c8ht9bjtp6k5knf9i8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.personal.firebase",
+            "certificate_hash": "f5b13c80cef6e7a57805a28237aa8380bdec4240"
+          }
+        },
+        {
+          "client_id": "276908502521-smqp4motavcejlhhpie7fo3c1qttuf1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAYANtptrjkkGFmHMxhyiLG7ZdeM20Faog"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276908502521-smqp4motavcejlhhpie7fo3c1qttuf1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
